@@ -9,8 +9,8 @@ import java.util.List;
  * {@code TrackerSQL} - нахотидся в {@code chapter_007}
  *
  * @author Daniils Loputevs
- * @version 1.0
- * @since 25.03.20
+ * @version $Id$
+ * @since 03.04.20.
  */
 public interface Tracker {
     Item add(Item item);

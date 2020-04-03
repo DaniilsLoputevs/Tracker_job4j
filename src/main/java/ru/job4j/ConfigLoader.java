@@ -12,10 +12,8 @@ import java.util.stream.Collectors;
  * и сохранить "Настройки" во внутреннюю map<String, String>.
  *
  * @author Daniils Loputevs
- * @version 1.0
- * @since 24.03.20.
- * Last upd:  24.03.20.
- * Last JavaDoc upd:  24.03.20.
+ * @version $Id$
+ * @since 03.04.20.
  */
 public class ConfigLoader {
     private String path;

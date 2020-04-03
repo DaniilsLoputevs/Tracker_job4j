@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * Класс содержащий универсальные и вспомогательные методы для работы со String.
  *
  * @author Daniils Loputevs
- * @version 1.0
+ * @version $Id$
  * @since 03.03.20.
  * Last upd:  06.03.20.
  * Last JavaDoc upd:  06.03.20.

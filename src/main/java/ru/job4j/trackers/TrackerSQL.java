@@ -18,8 +18,8 @@ import java.util.Random;
  * Класс менеджер заявок.
  *
  * @author Daniils Loputevs
- * @version 1.0
- * @since 25.03.20
+ * @version $Id$
+ * @since 03.04.20.
  * Created 25.03.20
  */
 public class TrackerSQL implements Tracker, AutoCloseable {

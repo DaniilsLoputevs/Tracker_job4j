@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 22.10.19
+ * @since 03.04.20.
  **/
 
 public class ConsoleInput implements Input {

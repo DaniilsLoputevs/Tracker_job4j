@@ -11,7 +11,7 @@ import java.util.function.Consumer;
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 23.12.19
+ * @since 03.04.20.
  **/
 
 public class StartUI {

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * Класс содержащий универсальные и вспомогательные методы для работы с IO.
  *
  * @author Daniils Loputevs
- * @version 1.1
+ * @version $Id$
  * @since 18.02.20.
  * Last upd:  24.03.20.
  * Last JavaDoc upd:  24.03.20.

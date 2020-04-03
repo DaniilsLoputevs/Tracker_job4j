@@ -11,8 +11,8 @@ import java.util.Random;
  * Класс менеджер заявок.
  *
  * @author Daniils Loputevs
- * @version 1.0
- * @since 29.11.19
+ * @version $Id$
+ * @since 03.04.20.
  * Created 15.10.19
  */
 

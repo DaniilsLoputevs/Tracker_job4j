@@ -26,7 +26,7 @@ public class ValidateInputTest {
     }
 
     @Test // Please select key from menu.
-    public void first() {
+    public void wrongSelectKeyFromMenu() {
         ValidateInput input = new ValidateInput(
                 new StubInput(new String[]{"9", "1", "2"})
         );
@@ -40,7 +40,7 @@ public class ValidateInputTest {
     }
 
     @Test // Please enter data again.
-    public void second() {
+    public void wrongEnterDate() {
         ValidateInput input = new ValidateInput(
                 new StubInput(new String[]{"invalid", "1", "2"})
         );

@@ -22,6 +22,7 @@ public class TrackerSQLTest {
     @Test
     public void add() {
         var clean = tracker.add(new Item("Запись от - add()"));
+
         assertNotNull(clean);
         cleanBaseTracker(clean);
     }
@@ -39,8 +40,8 @@ public class TrackerSQLTest {
     public void delete() {
         var deleteItem = tracker.add(new Item("Запись от - delete()"));
         tracker.delete(deleteItem.getId());
-        assertEquals(0, tracker.findByName("Запись от - delete()").size());
 
+        assertEquals(0, tracker.findByName("Запись от - delete()").size());
     }
 
     @Test
@@ -48,6 +49,7 @@ public class TrackerSQLTest {
         var item1 = tracker.add(new Item("Запись от - findAll()"));
         var item2 = tracker.add(new Item("Запись от - findAll()"));
         var list = tracker.findAll();
+
         assertTrue(list.size() >= 2);
         cleanBaseTracker(item1, item2);
     }

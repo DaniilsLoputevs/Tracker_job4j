@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.Item;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -38,21 +37,21 @@ public class TrackerLocalTest {
     public void delete() {
         tracker.addAll(one, two);
         tracker.delete(two.getId());
-        List<Item> expected = new ArrayList<>(List.of(one));
+        List<Item> expected = List.of(one);
         assertEquals(expected, tracker.findAll());
     }
 
     @Test
     public void findAll() {
         tracker.addAll(one, two);
-        List<Item> expected = new ArrayList<>(List.of(one, two));
+        List<Item> expected = List.of(one, two);
         assertEquals(expected, tracker.findAll());
     }
 
     @Test
     public void findByName() {
         tracker.addAll(one, two, three);
-        List<Item> expected = new ArrayList<>(List.of(one, three));
+        List<Item> expected = List.of(one, three);
         assertEquals(expected, tracker.findByName("example"));
     }
 

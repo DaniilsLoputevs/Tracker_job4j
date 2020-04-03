@@ -6,7 +6,7 @@ package ru.job4j;
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 14.11.19
+ * @since 03.04.20.
  **/
 
 public class StubInput implements Input {

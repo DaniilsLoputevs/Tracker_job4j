@@ -5,8 +5,8 @@ package ru.job4j;
  * Все заявк хранятся в ArrayList<Item> items в классе TrackerLocal
  *
  * @author Daniils Loputevs
- * @version 1.1
- * @since 1.1
+ * @version $Id$
+ * @since 03.04.20.
  **/
 
 public class Item {

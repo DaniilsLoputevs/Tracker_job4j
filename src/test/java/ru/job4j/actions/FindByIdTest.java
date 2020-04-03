@@ -3,36 +3,57 @@ package ru.job4j.actions;
 import org.junit.Test;
 import ru.job4j.Item;
 import ru.job4j.StubInput;
-import ru.job4j.trackers.TrackerLocal;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.StringJoiner;
-import java.util.function.Consumer;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class FindByIdTest {
+public class FindByIdTest extends AbstractTests {
+    // 1) init
+    private Item testItem = new Item("Запись от - actions[FindById.execute()]");
+    private BaseAction action = new FindById(1, "");
 
     @Test
-    public void findByIdClassTest() {
-        // Подгатовка
-        ByteArrayOutputStream newOutput = new ByteArrayOutputStream();
-        PrintStream defaultOutput = System.out;
-        System.setOut(new PrintStream(newOutput));
-        Consumer<String> output = System.out::println;
-        // Основной блок
-        TrackerLocal trackerLocal = new TrackerLocal();
-        Item item = new Item("example");
-        trackerLocal.add(item);
-        // Действие
-        new FindById(1, "").execute(new StubInput(new String[]{item.getId()}), trackerLocal, output);
-        // Такая же, строка, что метод кинул в sout();
-        String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
-                .add(item.getId() + " " + item.getName()).toString();
-        assertEquals(expect, new String(newOutput.toByteArray()));
-//        assertThat(new String(newOutput.toByteArray()), is(expect));
-        // Возвращаем стандартный вывод
-        System.setOut(defaultOutput);
+    public void modelTestFindByIdSql() {
+        // 2) prepare
+        tracker.add(testItem);
+        var stubInput = new StubInput(new String[]{
+                testItem.getId()
+        });
+
+        // 3) action
+        modelTestActionsSql(action, stubInput);
+
+        // ~4) expected
+        var tempResult = List.of(testItem);
+        var expected = formatExpected(tempResult);
+
+        // 5) compare
+        assertEquals(expected, actualAnswer);
+
+        // 6) close
+        close(testItem);
     }
+
+    @Test
+    public void modelTestFindByIdLocal() {
+        // 2) prepare
+        trackerLocal.add(testItem);
+        var stubInput = new StubInput(new String[]{
+                testItem.getId()
+        });
+
+        // 3) action
+        modelTestActionsLocal(action, stubInput);
+
+        // ~4) expected
+        var tempResult = List.of(testItem);
+        var expected = formatExpected(tempResult);
+
+        // 5) compare
+        assertEquals(expected, actualAnswer);
+
+        // ~6) close
+    }
+
 }

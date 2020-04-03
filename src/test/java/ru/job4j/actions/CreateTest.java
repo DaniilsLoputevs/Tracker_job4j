@@ -2,32 +2,52 @@ package ru.job4j.actions;
 
 import org.junit.Test;
 import ru.job4j.StubInput;
-import ru.job4j.Tracker;
-import ru.job4j.trackers.TrackerLocal;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.function.Consumer;
 
 import static org.junit.Assert.assertEquals;
 
-public class CreateTest {
-    private Consumer<String> output = System.out::println;
+public class CreateTest extends AbstractTests {
+    // 1) init
+    private BaseAction action = new Create(1, "");
 
     @Test
-    public void createActionClassTest() {
-        // Подгатовка
-        ByteArrayOutputStream newOutput = new ByteArrayOutputStream();
-        PrintStream defaultOutput = System.out;
-        System.setOut(new PrintStream(newOutput));
-        // Основной блок
-        Tracker trackerLocal = new TrackerLocal();
-        String nameCreateItem = "test";
-        // Действие
-        new Create(1, "").execute(new StubInput(new String[]{nameCreateItem}), trackerLocal, output);
-        assertEquals(trackerLocal.findByName("test"), trackerLocal.findAll());
-//        assertThat(trackerLocal.findAll(), is(trackerLocal.findByName("test")));
-        // Возвращаем стандартный вывод
-        System.setOut(defaultOutput);
+    public void modelTestCreateSql() {
+        // 2) prepare
+        var stubInput = new StubInput(new String[]{
+                "Запись от - actions[Create.execute()]"
+        });
+
+        // 3) action
+        modelTestActionsSql(action, stubInput);
+
+        // ~4) expected
+        var tempResult = tracker.findByName("Запись от - actions[Create.execute()]");
+        var expected = formatExpected(tempResult);
+
+        // 5) compare
+        assertEquals(expected, actualAnswer);
+
+        // 6) close
+        close(tempResult.get(0));
     }
+
+    @Test
+    public void modelTestCreateLocal() {
+        // 2) prepare
+        var stubInput = new StubInput(new String[]{
+                "Запись от - actions[Create.execute()]"
+        });
+
+        // 3) action
+        modelTestActionsLocal(action, stubInput);
+
+        // ~4) expected
+        var tempResult = trackerLocal.findByName("Запись от - actions[Create.execute()]");
+        var expected = formatExpected(tempResult);
+
+        // 5) compare
+        assertEquals(expected, actualAnswer);
+
+        // ~6) close
+    }
+
 }

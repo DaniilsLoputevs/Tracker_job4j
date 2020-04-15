@@ -27,7 +27,7 @@ public class CreateTest extends AbstractTests {
         assertEquals(expected, actualAnswer);
 
         // 6) close
-        close(tempResult.get(0));
+        close();
     }
 
     @Test

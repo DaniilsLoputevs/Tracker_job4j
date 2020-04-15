@@ -32,7 +32,8 @@ public class FindByIdTest extends AbstractTests {
         assertEquals(expected, actualAnswer);
 
         // 6) close
-        close(testItem);
+//        close(testItem);
+        close();
     }
 
     @Test

@@ -12,7 +12,7 @@ import java.util.Random;
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 03.04.20.
+ * @since 15.04.20.
  * Created 15.10.19
  */
 
@@ -36,12 +36,6 @@ public class TrackerLocal implements Tracker {
 
     // Методы на которых основаны все клаасы в пакете actions
 
-    /**
-     * Добавить заявку в tracker
-     * + Присваивает id для новой заявки.
-     *
-     * @param item новая заявка.
-     */
     @Override
     public Item add(Item item) {
         item.setId(this.generateId());
@@ -49,12 +43,6 @@ public class TrackerLocal implements Tracker {
         return item;
     }
 
-    /**
-     * Добавляет ряд заявок в tracker.
-     *
-     * @param items - набор заявок.
-     * @return List<Item> - лист всех заявок.
-     */
     @Override
     public List<Item> addAll(Item... items) {
         List<Item> result = new ArrayList<>();
@@ -67,13 +55,6 @@ public class TrackerLocal implements Tracker {
         return result;
     }
 
-    /**
-     * Замена старой заявки по её id, новый завкой(item).
-     * После замены, ячейка имее старый id.
-     *
-     * @param id   id старой заявки (для удаление).
-     * @param item новая заявка.
-     */
     @Override
     public boolean replace(String id, Item item) {
         int index = indexOfId(id);
@@ -84,12 +65,6 @@ public class TrackerLocal implements Tracker {
         return true;
     }
 
-    /**
-     * Удалить завку по id.
-     * после сдвигает все след. ячейки ближе к началу коллекции.
-     *
-     * @param id - id заявки для удаление.
-     */
     @Override
     public boolean delete(String id) {
         int index = indexOfId(id);
@@ -101,22 +76,12 @@ public class TrackerLocal implements Tracker {
 
     // Методы findBy...
 
-    /**
-     * Найти все заявки.
-     *
-     * @return Item[] - массив всех заявок.
-     */
     @Override
     public List<Item> findAll() {
         return new ArrayList<>(items);
     }
 
-    /**
-     * Поиск заявки по имени.
-     * Т.к. заявок может быть много, метод возвращает ArrayList.
-     *
-     * @return Item[] - массив всех заявок с одинаковыми именами.
-     */
+
     @Override
     public List<Item> findByName(String key) {
         ArrayList<Item> result = new ArrayList<>();
@@ -128,16 +93,20 @@ public class TrackerLocal implements Tracker {
         return result;
     }
 
-    /**
-     * Поиск заявки по id.
-     *
-     * @param id id заявки для возврата.
-     * @return Item - нужная заявка.
-     */
     @Override
     public Item findById(String id) {
         int index = indexOfId(id);
         return (index != -1) ? items.get(index) : null;
+    }
+
+    @Override
+    public boolean containsId(String id) {
+        return indexOfId(id) != -1;
+    }
+
+    @Override
+    public boolean containsName(String name) {
+        return !findByName(name).isEmpty();
     }
 
     /**
@@ -158,28 +127,6 @@ public class TrackerLocal implements Tracker {
         }
         index = (find) ? index : -1;
         return index;
-    }
-
-    /**
-     * Проверка: Есть ли заявка с таким id в tracker.
-     *
-     * @param id - id для поиска.
-     * @return - true/false
-     */
-    @Override
-    public boolean containsId(String id) {
-        return indexOfId(id) != -1;
-    }
-
-    /**
-     * Проверка: Есть ли заявка с таким name в tracker.
-     *
-     * @param name - name для поиска.
-     * @return - true/false
-     */
-    @Override
-    public boolean containsName(String name) {
-        return !findByName(name).isEmpty();
     }
 
     @Override

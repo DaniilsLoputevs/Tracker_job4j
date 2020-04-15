@@ -19,20 +19,26 @@ import java.util.Random;
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 03.04.20.
- * Created 25.03.20
+ * @since 15.04.20.
+ * Created 25.03.20.
  */
 public class TrackerSQL implements Tracker, AutoCloseable {
     private static final Logger LOG = LoggerFactory.getLogger(TrackerSQL.class);
     private Connection connection;
+    private String defaultConfigPath = "./src/main/resources/connection_config.properties";
 
-    public TrackerSQL(String configPath) {
-        initConnection(configPath);
+    public TrackerSQL() {
+        initConnection();
         createTableIfNotExits();
     }
 
-    private void initConnection(String configPath) {
-        var config = new ConfigLoader(configPath);
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
+        createTableIfNotExits();
+    }
+
+    private void initConnection() {
+        var config = new ConfigLoader(defaultConfigPath);
         try {
             this.connection = DriverManager.getConnection(
                     config.value("url"),
@@ -72,12 +78,6 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         return item;
     }
 
-    /**
-     * Добавляет ряд заявок в tracker.
-     *
-     * @param items - набор заявок.
-     * @return List<Item> - лист всех заявок.
-     */
     @Override
     public List<Item> addAll(Item... items) {
         List<Item> result = new ArrayList<>();
@@ -181,9 +181,9 @@ public class TrackerSQL implements Tracker, AutoCloseable {
 
     @Override
     public void close() {
-        if (connection != null) {
+        if (this.connection != null) {
             try {
-                connection.close();
+                this.connection.close();
             } catch (SQLException e) {
                 LOG.error(e.getMessage(), e);
             }

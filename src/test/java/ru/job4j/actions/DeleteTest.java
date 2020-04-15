@@ -32,7 +32,7 @@ public class DeleteTest extends AbstractTests {
         assertTrue(tracker.containsName(three.getName()));
 
         // 6) close
-        close(one, three);
+        close();
     }
 
     @Test

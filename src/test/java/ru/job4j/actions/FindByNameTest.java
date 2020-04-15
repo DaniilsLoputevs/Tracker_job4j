@@ -32,7 +32,7 @@ public class FindByNameTest extends AbstractTests {
         assertEquals(expected, actualAnswer);
 
         // 6) close
-        close(testItem);
+        close();
     }
 
     @Test

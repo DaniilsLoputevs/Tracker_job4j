@@ -33,8 +33,7 @@ public class TrackerLocal implements Tracker {
         return String.valueOf(rm.nextLong() + System.currentTimeMillis());
     }
 
-
-    // Методы на которых основаны все клаасы в пакете actions
+    /* ============= Методы Tracker ============= */
 
     @Override
     public Item add(Item item) {
@@ -74,13 +73,12 @@ public class TrackerLocal implements Tracker {
         return true;
     }
 
-    // Методы findBy...
+    /* ============= Методы findBy... ============= */
 
     @Override
     public List<Item> findAll() {
         return new ArrayList<>(items);
     }
-
 
     @Override
     public List<Item> findByName(String key) {

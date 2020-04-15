@@ -1,8 +1,13 @@
 # Compiled class file
 *.class
 
-# IDEA package
-*.idea
+# intellij IDEA specific
+*.eml
+*.iml
+*.ipr
+*.iws
+.*.sw?
+.idea
 
 # Log file
 *.log

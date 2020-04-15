@@ -1,0 +1,30 @@
+# используем язык java. Travis CI поддерживает другие языки тоже.
+language: java
+jdk:
+- openjdk11
+
+# используем режим обычного пользователя для сборки проекта.
+sudo: false
+
+services:
+  - postgresql
+
+before_install:
+  - psql -c 'create database tracker;' -U postgres
+
+env:
+  global:
+    - CODECOV_TOKEN="17c3f3dc-7444-4b95-a5f0-a55104a309be"
+
+# после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
+# Здесь используется сторонни сервис https://codecov.io/
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+
+# Отправлять уведомление на почту laiwiense@gmail.com
+notifications:
+  email:
+    recipients:
+      -laiwiense@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: always

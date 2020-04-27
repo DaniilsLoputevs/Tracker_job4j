@@ -28,12 +28,10 @@ public class TrackerSQL implements Tracker, AutoCloseable {
 
     public TrackerSQL() {
         initConnection();
-//        createTableIfNotExits();
     }
 
     public TrackerSQL(Connection connection) {
         this.connection = connection;
-//        createTableIfNotExits();
     }
 
     private void initConnection() {
@@ -51,17 +49,6 @@ public class TrackerSQL implements Tracker, AutoCloseable {
             LOG.error(e.getMessage(), e);
         }
     }
-
-//    private void createTableIfNotExits() {
-//        try {
-//            Statement st = this.connection.createStatement();
-//            st.execute("create table if not exists items ("
-//                    + "id         varchar(20) primary key not null,"
-//                    + "name       varchar(200));");
-//        } catch (SQLException r) {
-//            LOG.error("Exception in - TrackerSQL.createTableIfNotExits()", r);
-//        }
-//    }
 
     @Override
     public Item add(Item item) {

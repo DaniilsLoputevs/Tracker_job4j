@@ -22,12 +22,6 @@ public class TrackerSQLTest {
     private Connection connection;
     private static final Logger LOG = LoggerFactory.getLogger(TrackerSQLTest.class);
 
-//    public void cleanBaseTracker(Item... items) {
-//        //clean database from test records
-//        var cleanList = new LinkedList<>(List.of(items));
-//        cleanList.forEach(item -> new TrackerSQL(configPath).delete(item.getId()));
-//    }
-
     @Before
     public void setUp() {
         try {

@@ -16,7 +16,7 @@ public interface Tracker {
 
     /**
      * Добавить заявку в tracker.
-     * * В TrackerLocal Присваивает {@param id} для новой заявки.
+     * * Присваивает завке новый {@param id}.
      *
      * @param item - новая заявка.
      */
@@ -32,7 +32,7 @@ public interface Tracker {
 
     /**
      * Замена старой заявки по её {@param id}, новой заявкой {@param item}.
-     * * После замены, ячейка имее старый {@param id}.
+     * * После замены, ячейка имее {@param id} от старый заявки.
      *
      * @param id   - id старой заявки (для её поиска).
      * @param item - новая заявка.
@@ -56,7 +56,7 @@ public interface Tracker {
     List<Item> findAll();
 
     /**
-     * Поиск заявки по имени.
+     * Поиск заявки по {@param name}.
      *
      * @param name - name заявки для поиска.
      * @return List<Item> - лист всех заявок с одинаковыми именами.
@@ -72,7 +72,7 @@ public interface Tracker {
     Item findById(String id);
 
     /**
-     * Проверка: Есть ли заявка с таким {@param id} в tracker.
+     * Проверка: Есть ли заявка с таким {@param id} в {@code tracker}.
      *
      * @param id - id для поиска.
      * @return boolean - успех/провал.

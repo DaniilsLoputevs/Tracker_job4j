@@ -7,11 +7,11 @@ import ru.job4j.Tracker;
 import java.util.function.Consumer;
 
 /**
- * Вернуть заявку по name из tracker.items
+ * Вернуть заявку по name из tracker.
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 23.12.19
+ * @since 23.12.19.
  **/
 
 public class FindByName extends BaseAction {

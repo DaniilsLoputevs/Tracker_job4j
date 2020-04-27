@@ -9,7 +9,6 @@ import ru.job4j.Tracker;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,18 +22,16 @@ import java.util.Random;
  * Created 25.03.20.
  */
 public class TrackerSQL implements Tracker, AutoCloseable {
-    private static final Logger LOG = LoggerFactory.getLogger(TrackerSQL.class);
     private Connection connection;
     private String defaultConfigPath = "./src/main/resources/connection_config.properties";
+    private static final Logger LOG = LoggerFactory.getLogger(TrackerSQL.class);
 
     public TrackerSQL() {
         initConnection();
-        createTableIfNotExits();
     }
 
     public TrackerSQL(Connection connection) {
         this.connection = connection;
-        createTableIfNotExits();
     }
 
     private void initConnection() {
@@ -50,17 +47,6 @@ public class TrackerSQL implements Tracker, AutoCloseable {
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
-        }
-    }
-
-    private void createTableIfNotExits() {
-        try {
-            Statement st = this.connection.createStatement();
-            st.execute("create table if not exists items ("
-                    + "id         varchar(30) primary key,"
-                    + "name       varchar(200));");
-        } catch (SQLException r) {
-            LOG.error("Exception in - TrackerSQL.createTableIfNotExits()", r);
         }
     }
 
@@ -171,7 +157,8 @@ public class TrackerSQL implements Tracker, AutoCloseable {
 
     @Override
     public boolean containsId(String id) {
-        return findById(id).getId() != null;
+        var temp = findById(id);
+        return temp != null && temp.getId() != null;
     }
 
     @Override

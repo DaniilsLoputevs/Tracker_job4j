@@ -7,11 +7,11 @@ import ru.job4j.Tracker;
 import java.util.function.Consumer;
 
 /**
- * Заменить заявку по id на новую заявку в tracker.items
+ * Заменить заявку по id на новую заявку в tracker.
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 23.12.19
+ * @since 23.12.19.
  **/
 
 public class Replace extends BaseAction {
@@ -31,7 +31,6 @@ public class Replace extends BaseAction {
                 var local = new Item(id, name);
                 tracker.replace(id, local);
                 output.accept((String.format("%s %s", local.getId(), local.getName())));
-                System.out.println();
             }
         }
         return true;

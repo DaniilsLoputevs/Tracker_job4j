@@ -1,5 +1,7 @@
 package ru.job4j.actions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.ConfigLoader;
 import ru.job4j.Item;
 import ru.job4j.StubInput;
@@ -24,6 +26,7 @@ public abstract class AbstractTests {
 
     // TrackerLocal
     protected Tracker trackerLocal = new TrackerLocal();
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractTests.class);
 
     private Tracker trackerSqlInit() {
         Tracker result = null;
@@ -38,7 +41,7 @@ public abstract class AbstractTests {
 
             result = new TrackerSQL(connection);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
         return result;
     }

@@ -10,7 +10,7 @@ import java.util.function.Consumer;
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 23.12.19
+ * @since 23.12.19.
  **/
 
 public class ExitOfProgramm extends BaseAction {

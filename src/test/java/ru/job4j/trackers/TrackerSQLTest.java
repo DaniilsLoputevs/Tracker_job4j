@@ -3,6 +3,8 @@ package ru.job4j.trackers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.ConfigLoader;
 import ru.job4j.Item;
 import ru.job4j.Tracker;
@@ -18,12 +20,7 @@ public class TrackerSQLTest {
     private String configPath = "./src/main/resources/connection_config.properties";
     private Tracker tracker;
     private Connection connection;
-
-//    public void cleanBaseTracker(Item... items) {
-//        //clean database from test records
-//        var cleanList = new LinkedList<>(List.of(items));
-//        cleanList.forEach(item -> new TrackerSQL(configPath).delete(item.getId()));
-//    }
+    private static final Logger LOG = LoggerFactory.getLogger(TrackerSQLTest.class);
 
     @Before
     public void setUp() {
@@ -38,7 +35,7 @@ public class TrackerSQLTest {
 
             this.tracker = new TrackerSQL(connection);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
     }
 

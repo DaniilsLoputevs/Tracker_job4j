@@ -7,11 +7,11 @@ import ru.job4j.Tracker;
 import java.util.function.Consumer;
 
 /**
- * Вернуть все заявки из tracker.items
+ * Вернуть все заявки из tracker.
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 23.12.19
+ * @since 23.12.19.
  **/
 
 public class FindAll extends BaseAction {

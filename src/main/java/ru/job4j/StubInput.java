@@ -1,8 +1,7 @@
 package ru.job4j;
 
 /**
- * Реализует interface Input - Заглушка. Нужна для тестов.
- * Все методы выполяют одну функцию - спровить строку.
+ * Реализует interface Input - Заглушка для тестов.
  *
  * @author Daniils Loputevs
  * @version $Id$

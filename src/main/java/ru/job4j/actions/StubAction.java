@@ -6,12 +6,12 @@ import ru.job4j.Tracker;
 import java.util.function.Consumer;
 
 /**
- * Заглушка - Имитация действий для tracker.items
- * Нужна для тестов
+ * Заглушка - Имитация действий для tracker.
+ * Нужна для тестов.
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 23.12.19
+ * @since 23.12.19.
  **/
 
 public class StubAction extends BaseAction {

@@ -3,12 +3,12 @@ package ru.job4j.actions;
 import ru.job4j.UserAction;
 
 /**
- * abstract class - implements UserAction
+ * abstract class - implements UserAction.
  * Реализует общие методы Классов в папке actions.
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 17.11.19
+ * @since 17.11.19.
  **/
 
 public abstract class BaseAction implements UserAction {

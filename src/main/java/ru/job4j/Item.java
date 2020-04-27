@@ -1,8 +1,8 @@
 package ru.job4j;
 
 /**
- * Класс Класс шаблон: item - (заявки)
- * Все заявк хранятся в ArrayList<Item> items в классе TrackerLocal
+ * Модель данных: Заявка.
+ * Используется Имплементация {@code Tracker}.
  *
  * @author Daniils Loputevs
  * @version $Id$

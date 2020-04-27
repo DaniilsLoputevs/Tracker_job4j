@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 /**
- * Главый класс с main методом
+ * Главый класс с main методом.
  *
  * @author Daniils Loputevs
  * @version $Id$
@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 public class StartUI {
 
     /**
-     * Метод инициилизации программы
+     * Метод инициилизации программы.
      *
      * @param input   - ValidateInput(input).
      * @param tracker tracker - Менеджер заявок.

@@ -1,8 +1,7 @@
 package ru.job4j;
 
 /**
- * Реализует interface Input - Валидация данных для ConsoleInput
- * Все методы выполяют одну функцию - спровить строку
+ * Реализует interface Input - Валидация данных для ConsoleInput.
  *
  * @author Daniils Loputevs
  * @version $Id$
@@ -13,7 +12,7 @@ public class ValidateInput implements Input {
     private final Input input;
 
     /**
-     * Конструктор
+     * Конструктор.
      *
      * @param input - ConsoleInput input - объявляеться в main()
      */

@@ -3,11 +3,11 @@ package ru.job4j.actions;
 import ru.job4j.Tracker;
 
 /**
- * Проверка существуют ли, такие данные в TrackerLocal tracker.
+ * Проверка существуют ли, такие данные в {@code tracker}.
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 24.11.19
+ * @since 24.11.19.
  **/
 
 class ValidateEnterData {

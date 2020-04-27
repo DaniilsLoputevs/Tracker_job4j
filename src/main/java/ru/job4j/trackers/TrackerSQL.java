@@ -23,9 +23,9 @@ import java.util.Random;
  * Created 25.03.20.
  */
 public class TrackerSQL implements Tracker, AutoCloseable {
-    private static final Logger LOG = LoggerFactory.getLogger(TrackerSQL.class);
     private Connection connection;
     private String defaultConfigPath = "./src/main/resources/connection_config.properties";
+    private static final Logger LOG = LoggerFactory.getLogger(TrackerSQL.class);
 
     public TrackerSQL() {
         initConnection();
@@ -57,7 +57,7 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         try {
             Statement st = this.connection.createStatement();
             st.execute("create table if not exists items ("
-                    + "id         varchar(30) primary key,"
+                    + "id         serial primary key not null,"
                     + "name       varchar(200));");
         } catch (SQLException r) {
             LOG.error("Exception in - TrackerSQL.createTableIfNotExits()", r);

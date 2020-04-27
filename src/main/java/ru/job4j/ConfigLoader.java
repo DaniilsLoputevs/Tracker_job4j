@@ -1,5 +1,7 @@
 package ru.job4j;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.codehelpers.IOHelper;
 
 import java.io.BufferedReader;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 public class ConfigLoader {
     private String path;
     private Map<String, String> values = new HashMap<>();
+
+    private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
 
     public ConfigLoader(final String path) {
         this.path = path;
@@ -63,7 +67,7 @@ public class ConfigLoader {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines().forEach(out::add);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
         return out.toString();
     }

@@ -31,7 +31,6 @@ public class Replace extends BaseAction {
                 var local = new Item(id, name);
                 tracker.replace(id, local);
                 output.accept((String.format("%s %s", local.getId(), local.getName())));
-                System.out.println();
             }
         }
         return true;

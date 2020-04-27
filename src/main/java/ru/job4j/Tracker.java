@@ -31,7 +31,7 @@ public interface Tracker {
     List<Item> addAll(Item... items);
 
     /**
-     * Замена старой заявки по её {@param id}, новой заявкой(item).
+     * Замена старой заявки по её {@param id}, новой заявкой {@param item}.
      * * После замены, ячейка имее старый {@param id}.
      *
      * @param id   - id старой заявки (для её поиска).

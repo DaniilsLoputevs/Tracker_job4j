@@ -57,7 +57,7 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         try {
             Statement st = this.connection.createStatement();
             st.execute("create table if not exists items ("
-                    + "id         serial primary key not null,"
+                    + "id         varchar(20) primary key not null,"
                     + "name       varchar(200));");
         } catch (SQLException r) {
             LOG.error("Exception in - TrackerSQL.createTableIfNotExits()", r);
@@ -171,7 +171,8 @@ public class TrackerSQL implements Tracker, AutoCloseable {
 
     @Override
     public boolean containsId(String id) {
-        return findById(id).getId() != null;
+        var temp = findById(id);
+        return temp != null && temp.getId() != null;
     }
 
     @Override

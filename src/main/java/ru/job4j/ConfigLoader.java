@@ -6,7 +6,10 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -85,12 +88,6 @@ public class ConfigLoader {
 
     @Override
     public String toString() {
-        StringJoiner out = new StringJoiner(System.lineSeparator());
-        try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            read.lines().forEach(out::add);
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
-        return out.toString();
+        return "Config: " + values;
     }
 }

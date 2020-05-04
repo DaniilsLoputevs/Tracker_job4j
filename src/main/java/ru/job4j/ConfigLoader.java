@@ -22,8 +22,6 @@ public class ConfigLoader {
     private Properties values = new Properties();
     private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
 
-    private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
-
     public ConfigLoader(final String path) {
         this.path = path;
         load();
@@ -54,22 +52,6 @@ public class ConfigLoader {
      */
     public String value(String key) {
         return this.values.getProperty(key);
-    }
-
-    /**
-     * Преобразовать содержимое файла в {@code List}, далее работать текстом в виде {@code List}.
-     *
-     * @param path - Путь файла.
-     * @return List<String> Все строчки из файла.
-     */
-    private List<String> readFileToList(String path) {
-        List<String> fileLines = new LinkedList<>();
-        try (var bufferedReader = new BufferedReader(new FileReader(path))) {
-            fileLines = bufferedReader.lines().collect(Collectors.toList());
-        } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-        }
-        return fileLines;
     }
 
     @Override

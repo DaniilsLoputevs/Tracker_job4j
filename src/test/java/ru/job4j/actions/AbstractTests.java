@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 public abstract class AbstractTests {
     // TrackerSQLTest - variables
-    protected String configPath = "./src/main/resources/connection_config.properties";
+    protected String configPath = "./src/main/java/ru/job4j/connection_config.properties";
     protected Tracker tracker = trackerSqlInit();
     protected List<String> actualAnswer = new ArrayList<>();
     protected Consumer<String> output = actualAnswer::add;

@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import static org.junit.Assert.*;
 
 public class TrackerSQLTest {
-    private String configPath = "./src/main/resources/connection_config.properties";
+    private String configPath = "./src/main/java/ru/job4j/connection_config.properties";
     private Tracker tracker;
     private Connection connection;
     private static final Logger LOG = LoggerFactory.getLogger(TrackerSQLTest.class);

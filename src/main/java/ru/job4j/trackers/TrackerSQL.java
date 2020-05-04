@@ -18,12 +18,12 @@ import java.util.Random;
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 15.04.20.
+ * @since 04.05.20.
  * Created 25.03.20.
  */
 public class TrackerSQL implements Tracker, AutoCloseable {
     private Connection connection;
-    private String defaultConfigPath = "./src/main/resources/connection_config.properties";
+    private String defaultConfigPath = "./src/main/java/ru/job4j/connection_config.properties";
     private static final Logger LOG = LoggerFactory.getLogger(TrackerSQL.class);
 
     public TrackerSQL() {
@@ -34,6 +34,9 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         this.connection = connection;
     }
 
+    /**
+     * Init Connection to DB.
+     */
     private void initConnection() {
         var config = new ConfigLoader(defaultConfigPath);
         try {
@@ -43,7 +46,7 @@ public class TrackerSQL implements Tracker, AutoCloseable {
                     config.value("password")
             );
             if (this.connection == null) {
-                System.out.println("Exception in TrackerSQL.initConnection(): this.connection == null");
+               throw new RuntimeException();
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
@@ -177,6 +180,10 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         }
     }
 
+    /**
+     * Create new Id for adding item.
+     * @return - Id for new {@code Item}.
+     */
     private String generateId() {
         Random rm = new Random();
         return String.valueOf(rm.nextLong() + System.currentTimeMillis());

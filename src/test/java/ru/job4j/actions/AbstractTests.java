@@ -3,10 +3,10 @@ package ru.job4j.actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.ConfigLoader;
-import ru.job4j.Item;
 import ru.job4j.StubInput;
 import ru.job4j.Tracker;
 import ru.job4j.db.ConnectionRollback;
+import ru.job4j.models.Item;
 import ru.job4j.trackers.TrackerLocal;
 import ru.job4j.trackers.TrackerSQL;
 
@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 
 public abstract class AbstractTests {
     // TrackerSQLTest - variables
-    protected String configPath = "./src/main/java/ru/job4j/connection_config.properties";
     protected Tracker tracker = trackerSqlInit();
     protected List<String> actualAnswer = new ArrayList<>();
     protected Consumer<String> output = actualAnswer::add;
@@ -31,7 +30,7 @@ public abstract class AbstractTests {
     private Tracker trackerSqlInit() {
         Tracker result = null;
         try {
-            var config = new ConfigLoader(configPath);
+            var config = new ConfigLoader(ConfigLoader.getPsqlConfigPath());
             var connection = DriverManager.getConnection(
                     config.value("url"),
                     config.value("username"),

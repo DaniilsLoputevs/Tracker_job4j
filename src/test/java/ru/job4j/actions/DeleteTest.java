@@ -1,8 +1,8 @@
 package ru.job4j.actions;
 
 import org.junit.Test;
-import ru.job4j.Item;
 import ru.job4j.StubInput;
+import ru.job4j.models.Item;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,7 +19,7 @@ public class DeleteTest extends AbstractTests {
         // 2) prepare
         tracker.addAll(one, two, three);
         var stubInput = new StubInput(new String[]{
-                two.getId()
+                "" + two.getId()
         });
 
         // 3) action
@@ -40,7 +40,7 @@ public class DeleteTest extends AbstractTests {
         // 2) prepare
         trackerLocal.addAll(one, two, three);
         var stubInput = new StubInput(new String[]{
-                two.getId()
+                "" + two.getId()
         });
 
         // 3) action

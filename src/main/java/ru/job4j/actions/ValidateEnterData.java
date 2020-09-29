@@ -11,7 +11,7 @@ import ru.job4j.Tracker;
  **/
 
 class ValidateEnterData {
-    static boolean checkId(String id, Tracker tracker) {
+    static boolean checkId(int id, Tracker tracker) {
         boolean result = false;
         if (tracker.containsId(id)) {
             result = true;

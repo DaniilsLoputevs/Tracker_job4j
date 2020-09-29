@@ -1,8 +1,8 @@
 package ru.job4j.actions;
 
 import org.junit.Test;
-import ru.job4j.Item;
 import ru.job4j.StubInput;
+import ru.job4j.models.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class FindByIdTest extends AbstractTests {
         // 2) prepare
         tracker.add(testItem);
         var stubInput = new StubInput(new String[]{
-                testItem.getId()
+                "" + testItem.getId()
         });
 
         // 3) action
@@ -43,7 +43,7 @@ public class FindByIdTest extends AbstractTests {
         // 2) prepare
         trackerLocal.add(testItem);
         var stubInput = new StubInput(new String[]{
-                testItem.getId()
+                "" + testItem.getId()
         });
 
         // 3) action

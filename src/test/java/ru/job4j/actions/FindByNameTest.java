@@ -1,8 +1,8 @@
 package ru.job4j.actions;
 
 import org.junit.Test;
-import ru.job4j.Item;
 import ru.job4j.StubInput;
+import ru.job4j.models.Item;
 
 import java.util.ArrayList;
 import java.util.List;

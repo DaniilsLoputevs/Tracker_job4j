@@ -1,8 +1,8 @@
 package ru.job4j.actions;
 
 import org.junit.Test;
-import ru.job4j.Item;
 import ru.job4j.StubInput;
+import ru.job4j.models.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class ReplaceTest extends AbstractTests {
         var newId = testItem.getId();
 
         var stubInput = new StubInput(new String[]{
-                testItem.getId(),
+                "" + testItem.getId(),
                 "Запись от - actions[Replace.execute()] - замена"
         });
 
@@ -47,7 +47,7 @@ public class ReplaceTest extends AbstractTests {
         var newId = testItem.getId();
 
         var stubInput = new StubInput(new String[]{
-                testItem.getId(),
+                "" + testItem.getId(),
                 "Запись от - actions[Replace.execute()] - замена"
         });
 

@@ -6,12 +6,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class ConfigLoaderTest {
-    private String path = "./src/test/resources/connection_config.properties";
     private ConfigLoader config;
 
     @Before
     public void setUp() {
-        config = new ConfigLoader(path);
+        config = new ConfigLoader(ConfigLoader.getPsqlConfigPath());
     }
 
     @Test

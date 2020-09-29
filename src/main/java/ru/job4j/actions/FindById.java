@@ -1,8 +1,8 @@
 package ru.job4j.actions;
 
 import ru.job4j.Input;
-import ru.job4j.Item;
 import ru.job4j.Tracker;
+import ru.job4j.models.Item;
 
 import java.util.function.Consumer;
 
@@ -22,7 +22,8 @@ public class FindById extends BaseAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
-        String id = input.askStr("Enter id: ");
+        String temp = input.askStr("Enter id: ");
+        int id = Integer.parseInt(temp);
         if (ValidateEnterData.checkId(id, tracker)) {
             Item local = tracker.findById(id);
             output.accept("table format: ID --- NAME");

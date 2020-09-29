@@ -6,9 +6,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.ConfigLoader;
-import ru.job4j.Item;
 import ru.job4j.Tracker;
 import ru.job4j.db.ConnectionRollback;
+import ru.job4j.models.Item;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +17,6 @@ import java.sql.SQLException;
 import static org.junit.Assert.*;
 
 public class TrackerSQLTest {
-    private String configPath = "./src/main/java/ru/job4j/connection_config.properties";
     private Tracker tracker;
     private Connection connection;
     private static final Logger LOG = LoggerFactory.getLogger(TrackerSQLTest.class);
@@ -25,7 +24,7 @@ public class TrackerSQLTest {
     @Before
     public void setUp() {
         try {
-            var config = new ConfigLoader(configPath);
+            var config = new ConfigLoader(ConfigLoader.getPsqlConfigPath());
             this.connection = DriverManager.getConnection(
                     config.value("url"),
                     config.value("username"),

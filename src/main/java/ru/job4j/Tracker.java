@@ -1,5 +1,7 @@
 package ru.job4j;
 
+import ru.job4j.models.Item;
+
 import java.util.List;
 
 /**
@@ -38,7 +40,7 @@ public interface Tracker {
      * @param item - новая заявка.
      * @return boolean - успех/провал.
      */
-    boolean replace(String id, Item item);
+    boolean replace(int id, Item item);
 
     /**
      * Удалить завку по {@param id}.
@@ -46,7 +48,7 @@ public interface Tracker {
      * @param id - id заявки для удаление.
      * @return boolean - успех/провал.
      */
-    boolean delete(String id);
+    boolean delete(int id);
 
     /**
      * Debug function BE CAREFUL.
@@ -77,7 +79,7 @@ public interface Tracker {
      * @param id - id заявки для поиска.
      * @return Item - нужная заявка.
      */
-    Item findById(String id);
+    Item findById(int id);
 
     /**
      * Проверка: Есть ли заявка с таким {@param id} в {@code tracker}.
@@ -85,7 +87,7 @@ public interface Tracker {
      * @param id - id для поиска.
      * @return boolean - успех/провал.
      */
-    boolean containsId(String id);
+    boolean containsId(int id);
 
     /**
      * Проверка: Есть ли заявка с таким name в tracker.

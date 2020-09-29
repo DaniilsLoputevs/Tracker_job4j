@@ -2,7 +2,7 @@ package ru.job4j.trackers;
 
 import org.junit.Before;
 import org.junit.Test;
-import ru.job4j.Item;
+import ru.job4j.models.Item;
 
 import java.util.List;
 

@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 /**
  * Читаем файл конфигурации.
@@ -21,8 +18,8 @@ import java.util.stream.Collectors;
  * @since 04.05.20.
  */
 public class ConfigLoader {
-    private String path;
-    private Properties values = new Properties();
+    private final String path;
+    private final Properties values = new Properties();
     private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
 
     public ConfigLoader(final String path) {
@@ -57,24 +54,15 @@ public class ConfigLoader {
         return this.values.getProperty(key);
     }
 
-    /**
-     * Преобразовать содержимое файла в {@code List}, далее работать текстом в виде {@code List}.
-     *
-     * @param path - Путь файла.
-     * @return List<String> Все строчки из файла.
-     */
-    private List<String> readFileToList(String path) {
-        List<String> fileLines = new LinkedList<>();
-        try (var bufferedReader = new BufferedReader(new FileReader(path))) {
-            fileLines = bufferedReader.lines().collect(Collectors.toList());
-        } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-        }
-        return fileLines;
-    }
-
     @Override
     public String toString() {
         return "Config: " + values;
+    }
+
+    /* static methods */
+
+    public static String getPsqlConfigPath() {
+        String cfgResourcePath = "connection_config.properties";
+        return ConfigLoader.class.getClassLoader().getResource(cfgResourcePath).getFile();
     }
 }

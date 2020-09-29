@@ -22,15 +22,14 @@ public class Replace extends BaseAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
-//        output.accept(("Enter id in tracker for replace: "));  // Если нужно вести текст вручную
-        String id = input.askStr("");
+        String id = input.askStr("Enter id in tracker for replace: ");
         if (ValidateEnterData.checkId(id, tracker)) {
-//          output.accept(("Enter name for new item: "));    // Если нужно вести текст вручную
-            String name = input.askStr("");
+            String name = input.askStr("Enter name for new item: ");
             if (!ValidateEnterData.checkName(name, tracker)) {
                 var local = new Item(id, name);
                 tracker.replace(id, local);
-                output.accept((String.format("%s %s", local.getId(), local.getName())));
+                output.accept("table format: ID --- NAME");
+                output.accept(local.getId() + " --- " + local.getName());
             }
         }
         return true;

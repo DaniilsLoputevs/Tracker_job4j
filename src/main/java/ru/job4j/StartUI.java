@@ -1,7 +1,9 @@
 package ru.job4j;
 
 import ru.job4j.actions.*;
-import ru.job4j.trackers.TrackerLocal;
+import ru.job4j.actions.debug.DeleteAll;
+import ru.job4j.actions.debug.GenerateNItems;
+import ru.job4j.trackers.TrackerSQL;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
@@ -17,7 +19,7 @@ import java.util.function.Consumer;
 public class StartUI {
 
     /**
-     * Метод инициилизации программы.
+     * Метод инициализации программы.
      *
      * @param input   - ValidateInput(input).
      * @param tracker tracker - Менеджер заявок.
@@ -34,12 +36,12 @@ public class StartUI {
     }
 
     /**
-     * Показывает имина всех Действий добавленых в actions.
+     * Показывает имина всех Действий добавленных в actions.
      *
      * @param actions - ArrayList<UserAction> - список действий.
      */
     void showMenu(ArrayList<UserAction> actions) {
-        System.out.println("Menu.");
+        System.out.println("Menu:");
         for (UserAction action : actions) {
             System.out.println(action.name());
         }
@@ -59,6 +61,8 @@ public class StartUI {
         actions.add(new FindAll(4, "=== Show all Items ===="));
         actions.add(new FindByName(5, "=== Find Item by Name ===="));
         actions.add(new FindById(6, "=== Find Item by Id ===="));
+        actions.add(new GenerateNItems(7, "=== DEBUG! Generate N random items ===="));
+        actions.add(new DeleteAll(8, "=== DEBUG! Clear FULL store!!! ===="));
         return actions;
     }
 
@@ -67,7 +71,7 @@ public class StartUI {
         Input input = new ConsoleInput();
         Consumer<String> output = System.out::println;
         Input validate = new ValidateInput(input);
-        Tracker tracker = new TrackerLocal();
+        Tracker tracker = new TrackerSQL();
         ArrayList<UserAction> actions = setActions();
         new StartUI().init(validate, tracker, actions, output);
     }

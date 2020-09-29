@@ -33,6 +33,7 @@ public class StubInput implements Input {
         if (select < 0 || select >= max) {
             throw new IllegalStateException(String.format("Out of about %s > [0, %s]", select, max));
         }
-        return askInt(question);
+//        return askInt(question);
+        return select;
     }
 }

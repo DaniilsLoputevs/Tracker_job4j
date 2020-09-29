@@ -22,12 +22,11 @@ public class FindByName extends BaseAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
-//        System.out.print("Enter id: "); // Если нужно вести текст вручную
-        String name = input.askStr("");
+        String name = input.askStr("Enter name: ");
+        output.accept("table format: ID --- NAME");
         for (Item item : tracker.findByName(name)) {
-            output.accept((String.format("%s %s", item.getId(), item.getName())));
+            output.accept(item.getId() + " --- " + item.getName());
         }
-        System.out.println();
         return true;
     }
 }

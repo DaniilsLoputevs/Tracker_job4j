@@ -56,7 +56,7 @@ public abstract class AbstractTests {
 
     protected List<String> formatExpected(List<Item> tempExpected) {
         return tempExpected.stream()
-                .map(item -> String.format("%s %s", item.getId(), item.getName()))
+                .map(item -> item.getId() + " --- " + item.getName())
                 .collect(Collectors.toList());
     }
 

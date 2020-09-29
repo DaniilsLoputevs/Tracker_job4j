@@ -4,12 +4,15 @@ import org.junit.Test;
 import ru.job4j.Item;
 import ru.job4j.StubInput;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class FindAllTest extends AbstractTests {
     // 1) init
-    private Item testItem = new Item("Запись от - actions[FindAll.execute()]");
-    private BaseAction action = new FindAll(1, "");
+    private final Item testItem = new Item("Запись от --- actions[FindAll.execute()]");
+    private final BaseAction action = new FindAll(1, "");
 
     @Test
     public void modelTestFindAllSql() {
@@ -24,12 +27,13 @@ public class FindAllTest extends AbstractTests {
 
         // ~4) expected
         var tempResult = tracker.findAll();
-        var expected = formatExpected(tempResult);
+        var expected = new ArrayList<>(List.of("table format: ID --- NAME"));
+        expected.addAll(formatExpected(tempResult));
 
         // 5) compare
         assertEquals(expected, actualAnswer);
 
-        // 6) close
+        // ~6) close
         close();
     }
 
@@ -46,7 +50,8 @@ public class FindAllTest extends AbstractTests {
 
         // ~4) expected
         var tempResult = trackerLocal.findAll();
-        var expected = formatExpected(tempResult);
+        var expected = new ArrayList<>(List.of("table format: ID --- NAME"));
+        expected.addAll(formatExpected(tempResult));
 
         // 5) compare
         assertEquals(expected, actualAnswer);

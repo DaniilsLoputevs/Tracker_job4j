@@ -30,7 +30,7 @@ public class TrackerLocal implements Tracker {
      */
     int generateId() {
         var rm = new Random();
-        return Integer.parseInt("" + rm.nextLong() + System.currentTimeMillis());
+        return Integer.parseInt("" + (rm.nextInt() + System.currentTimeMillis() / rm.nextInt()));
     }
 
     /* ============= Методы Tracker ============= */

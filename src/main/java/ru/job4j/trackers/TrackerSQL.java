@@ -54,10 +54,10 @@ public class TrackerSQL implements Tracker, AutoCloseable {
 
     @Override
     public Item add(Item item) {
-        try (var st = this.connection.prepareStatement("insert into items(id, name) values(?, ?);")) {
-            item.setId(generateId());
-            st.setInt(1, item.getId());
-            st.setString(2, item.getName());
+        try (var st = this.connection.prepareStatement(
+                "insert into items(name) values(?)")) {
+//            st.setInt(1, item.getId());
+            st.setString(1, item.getName());
             st.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -199,6 +199,6 @@ public class TrackerSQL implements Tracker, AutoCloseable {
      */
     private int generateId() {
         Random rm = new Random();
-        return Integer.parseInt("" + rm.nextLong() + System.currentTimeMillis());
+        return Integer.parseInt("" + rm.nextInt() + System.currentTimeMillis() / 123456);
     }
 }

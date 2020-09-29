@@ -29,6 +29,13 @@ public class HibernateRun {
             for (Item it : list) {
                 ConslLog.log("delete item", it);
             }
+
+
+            create(new Item(1, "one"), sf);
+            create(new Item(2, "two"), sf);
+            create(new Item(3, "three"), sf);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

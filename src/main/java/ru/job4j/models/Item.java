@@ -1,6 +1,7 @@
 package ru.job4j.models;
 
 import javax.persistence.*;
+import java.security.Timestamp;
 import java.util.Objects;
 
 /**
@@ -19,6 +20,8 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String description;
+    private Timestamp created;
 
     public Item() {
     }
@@ -30,6 +33,13 @@ public class Item {
     public Item(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Item(int id, String name, String description, Timestamp created) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.created = created;
     }
 
 
@@ -49,6 +59,22 @@ public class Item {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -58,20 +84,24 @@ public class Item {
             return false;
         }
         Item item = (Item) o;
-        return Objects.equals(id, item.id)
-                && Objects.equals(name, item.name);
+        return id == item.id
+                && Objects.equals(name, item.name)
+                && Objects.equals(description, item.description)
+                && Objects.equals(created, item.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, name, description, created);
     }
 
     @Override
     public String toString() {
         return "Item{"
-                + "id='" + id + '\''
+                + "id=" + id
                 + ", name='" + name + '\''
+                + ", description='" + description + '\''
+                + ", created=" + created
                 + '}';
     }
 }

@@ -22,10 +22,9 @@ public class Create extends BaseAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
-//        output.accept("Enter name: "); // Если нужно вести текст вручную - v2
-        var local = tracker.add(new Item(input.askStr("")));
-        output.accept((String.format("%s %s", local.getId(), local.getName())));
-        System.out.println();
+        var local = tracker.add(new Item(input.askStr("Enter name: ")));
+        output.accept("table format: ID --- NAME");
+        output.accept(local.getId() + " --- " + local.getName());
         return true;
     }
 }

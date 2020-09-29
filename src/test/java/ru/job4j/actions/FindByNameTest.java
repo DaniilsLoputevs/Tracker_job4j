@@ -4,14 +4,15 @@ import org.junit.Test;
 import ru.job4j.Item;
 import ru.job4j.StubInput;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class FindByNameTest extends AbstractTests {
     // 1) init
-    private Item testItem = new Item("Запись от - actions[FindByName.execute()]");
-    private BaseAction action = new FindByName(1, "");
+    private Item testItem = new Item("Запись от --- actions[FindByName.execute()]");
+    private final BaseAction action = new FindByName(1, "");
 
     @Test
     public void modelTestFindByNameSql() {
@@ -26,7 +27,8 @@ public class FindByNameTest extends AbstractTests {
 
         // ~4) expected
         var tempResult = List.of(testItem);
-        var expected = formatExpected(tempResult);
+        var expected = new ArrayList<>(List.of("table format: ID --- NAME"));
+        expected.addAll(formatExpected(tempResult));
 
         // 5) compare
         assertEquals(expected, actualAnswer);
@@ -48,7 +50,8 @@ public class FindByNameTest extends AbstractTests {
 
         // ~4) expected
         var tempResult = List.of(testItem);
-        var expected = formatExpected(tempResult);
+        var expected = new ArrayList<>(List.of("table format: ID --- NAME"));
+        expected.addAll(formatExpected(tempResult));
 
         // 5) compare
         assertEquals(expected, actualAnswer);

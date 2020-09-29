@@ -21,6 +21,7 @@ public class ExitOfProgramm extends BaseAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
+        output.accept("Exit of Program.");
         return false;
     }
 }

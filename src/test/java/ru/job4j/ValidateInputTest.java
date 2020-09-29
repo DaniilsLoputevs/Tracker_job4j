@@ -28,7 +28,7 @@ public class ValidateInputTest {
     @Test // Please select key from menu.
     public void wrongSelectKeyFromMenu() {
         ValidateInput input = new ValidateInput(
-                new StubInput(new String[]{"9", "1", "2"})
+                new StubInput(new String[]{"9", "1"})
         );
 
         input.askInt("take first answer from arr", 6);

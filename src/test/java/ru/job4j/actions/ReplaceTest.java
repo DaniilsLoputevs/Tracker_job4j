@@ -4,14 +4,15 @@ import org.junit.Test;
 import ru.job4j.Item;
 import ru.job4j.StubInput;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class ReplaceTest extends AbstractTests {
     // 1) init
-    private Item testItem = new Item("Запись от - actions[Replace.execute()]");
-    private BaseAction action = new Replace(1, "");
+    private Item testItem = new Item("Запись от --- actions[Replace.execute()]");
+    private final BaseAction action = new Replace(1, "");
 
     @Test
     public void modelTestReplaceSql() {
@@ -29,7 +30,8 @@ public class ReplaceTest extends AbstractTests {
 
         // ~4) expected
         var tempResult = List.of(new Item(newId, "Запись от - actions[Replace.execute()] - замена"));
-        var expected = formatExpected(tempResult);
+        var expected = new ArrayList<>(List.of("table format: ID --- NAME"));
+        expected.addAll(formatExpected(tempResult));
 
         // 5) compare
         assertEquals(expected, actualAnswer);
@@ -54,7 +56,8 @@ public class ReplaceTest extends AbstractTests {
 
         // ~4) expected
         var tempResult = List.of(new Item(newId, "Запись от - actions[Replace.execute()] - замена"));
-        var expected = formatExpected(tempResult);
+        var expected = new ArrayList<>(List.of("table format: ID --- NAME"));
+        expected.addAll(formatExpected(tempResult));
 
         // 5) compare
         assertEquals(expected, actualAnswer);

@@ -14,11 +14,11 @@ public class StartUITest {
 
     @Test
     public void init() {
-        // создаём искуственный ввод информации
+        // создаём искусственный ввод информации
         StubInput input = new StubInput(
                 new String[]{"0", "0"}
         );
-        // создаём искуственное действие
+        // создаём искусственное действие
         StubAction action = new StubAction(1, "", false);
         ArrayList<UserAction> arrayList = new ArrayList<>();
         arrayList.add(action);

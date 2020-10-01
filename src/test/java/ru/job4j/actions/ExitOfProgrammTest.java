@@ -9,7 +9,7 @@ public class ExitOfProgrammTest extends AbstractTests {
     @Test
     public void actionExitOfProgrammTest() {
         boolean expect = new ExitOfProgramm(1, "").execute(
-                new StubInput(new String[]{" "}), tracker, output);
+                new StubInput(new String[]{" "}), trackerSql, output);
         assertFalse(expect);
     }
 }

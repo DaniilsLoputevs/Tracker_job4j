@@ -15,13 +15,16 @@ public class ConfigLoaderTest {
 
     @Test
     public void testConfigLoading() {
-        assertEquals("psql", config.value("username"));
+        assertEquals("postgres", config.value("username"));
     }
 
     @Test
     public void testConfigToString() {
         var result = config.toString();
-        var expected = "Config: {password=default, url=test.url, username=psql}";
+        var expected = "Config: "
+                + "{password=password,"
+                + " url=jdbc:postgresql://localhost:5432/tracker,"
+                + " username=postgres}";
         assertEquals(expected, result);
     }
 }

@@ -39,8 +39,7 @@ public class HbmTracker implements Tracker, AutoCloseable {
     @Override
     public boolean replace(int id, Item item) {
         return (boolean) transactionCore(session -> {
-            session.createQuery("update Item where id=" + id)
-                    .executeUpdate();
+            session.update(item);
             return true;
         });
     }
@@ -81,7 +80,7 @@ public class HbmTracker implements Tracker, AutoCloseable {
 
     @Override
     public List<Item> findByName(String name) {
-        final var NewName = "\'" + name + "\'";
+        final var NewName = "'" + name + "'";
         return (List<Item>) transactionCore(session ->
                 session.createQuery("from Item where name=" + NewName)
                         .list()

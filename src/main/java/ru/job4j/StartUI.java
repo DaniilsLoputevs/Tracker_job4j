@@ -71,7 +71,7 @@ public class StartUI {
         Input input = new ConsoleInput();
         Consumer<String> output = System.out::println;
         Input validate = new ValidateInput(input);
-        Tracker tracker = new TrackerSQL();
+        Tracker tracker = new TrackerSQL(false);
         ArrayList<UserAction> actions = setActions();
         new StartUI().init(validate, tracker, actions, output);
     }

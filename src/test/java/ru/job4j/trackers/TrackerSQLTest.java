@@ -1,47 +1,16 @@
 package ru.job4j.trackers;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.job4j.ConfigLoader;
 import ru.job4j.Tracker;
-import ru.job4j.db.ConnectionRollback;
 import ru.job4j.models.Item;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 
 public class TrackerSQLTest {
-    private Tracker tracker;
-    private Connection connection;
+    private final Tracker tracker = new TrackerSQL(true);
     private static final Logger LOG = LoggerFactory.getLogger(TrackerSQLTest.class);
-
-    @Before
-    public void setUp() {
-        try {
-            var config = new ConfigLoader(ConfigLoader.getPsqlConfigPath());
-            this.connection = DriverManager.getConnection(
-                    config.value("url"),
-                    config.value("username"),
-                    config.value("password")
-            );
-            connection = ConnectionRollback.create(connection);
-
-            this.tracker = new TrackerSQL(connection);
-        } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
-        }
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        this.connection.close();
-    }
 
     @Test
     public void add() {

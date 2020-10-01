@@ -15,9 +15,36 @@ public class ReplaceTest extends AbstractTests {
     private final BaseAction action = new Replace(1, "");
 
     @Test
+    public void modelTestReplaceHbm() {
+        // 2) prepare
+        testItem = trackerHbm.add(testItem);
+        var newId = testItem.getId();
+
+        var stubInput = new StubInput(new String[]{
+                "" + testItem.getId(),
+                "Запись от - actions[Replace.execute()] - замена"
+        });
+
+        // 3) action
+        modelTestActionsHbm(action, stubInput);
+
+        // ~4) expected
+        var tempResult = List.of(new Item(newId, "Запись от - actions[Replace.execute()] - замена"));
+        var expected = new ArrayList<>(List.of("table format: ID --- NAME"));
+        expected.addAll(formatExpected(tempResult));
+
+        // 5) compare
+        assertEquals(expected, actualAnswer);
+
+        // 6) close
+        trackerHbm.deleteAll();
+        closeSql();
+    }
+
+    @Test
     public void modelTestReplaceSql() {
         // 2) prepare
-        testItem = tracker.add(testItem);
+        testItem = trackerSql.add(testItem);
         var newId = testItem.getId();
 
         var stubInput = new StubInput(new String[]{
@@ -37,7 +64,7 @@ public class ReplaceTest extends AbstractTests {
         assertEquals(expected, actualAnswer);
 
         // 6) close
-        close();
+        closeSql();
     }
 
     @Test

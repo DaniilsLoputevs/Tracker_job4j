@@ -15,9 +15,33 @@ public class FindAllTest extends AbstractTests {
     private final BaseAction action = new FindAll(1, "");
 
     @Test
+    public void modelTestFindAllHbm() {
+        // 2) prepare
+        trackerHbm.add(testItem);
+        var stubInput = new StubInput(new String[]
+                {}
+        );
+
+        // 3) action
+        modelTestActionsHbm(action, stubInput);
+
+        // ~4) expected
+        var tempResult = trackerHbm.findAll();
+        var expected = new ArrayList<>(List.of("table format: ID --- NAME"));
+        expected.addAll(formatExpected(tempResult));
+
+        // 5) compare
+        assertEquals(expected, actualAnswer);
+
+        // ~6) close
+        trackerHbm.deleteAll();
+        closeSql();
+    }
+
+    @Test
     public void modelTestFindAllSql() {
         // 2) prepare
-        tracker.add(testItem);
+        trackerSql.add(testItem);
         var stubInput = new StubInput(new String[]
                 {}
         );
@@ -26,7 +50,7 @@ public class FindAllTest extends AbstractTests {
         modelTestActionsSql(action, stubInput);
 
         // ~4) expected
-        var tempResult = tracker.findAll();
+        var tempResult = trackerSql.findAll();
         var expected = new ArrayList<>(List.of("table format: ID --- NAME"));
         expected.addAll(formatExpected(tempResult));
 
@@ -34,7 +58,7 @@ public class FindAllTest extends AbstractTests {
         assertEquals(expected, actualAnswer);
 
         // ~6) close
-        close();
+        closeSql();
     }
 
     @Test

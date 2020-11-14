@@ -34,7 +34,6 @@ public class FindAllTest extends AbstractTests {
         assertEquals(expected, actualAnswer);
 
         // ~6) close
-        trackerHbm.deleteAll();
         closeSql();
     }
 

@@ -31,7 +31,6 @@ public class CreateTest extends AbstractTests {
         assertEquals(expected, actualAnswer);
 
         // 6) close
-        trackerHbm.deleteAll();
         closeHbm();
     }
 

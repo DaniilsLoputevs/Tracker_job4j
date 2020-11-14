@@ -54,13 +54,6 @@ public class HbmTracker implements Tracker, AutoCloseable {
         return true;
     }
 
-    /**
-     * YAGNI - You aren't gonna need it.
-     * <p>
-     * It will implement when it will need.
-     *
-     * @return -
-     */
     @Override
     public boolean deleteAll() {
         transactionCore(session ->

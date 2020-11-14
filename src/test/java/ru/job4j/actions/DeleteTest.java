@@ -32,7 +32,6 @@ public class DeleteTest extends AbstractTests {
         assertTrue(trackerHbm.containsName(three.getName()));
 
         // 6) close
-        trackerHbm.deleteAll();
         closeHbm();
     }
 

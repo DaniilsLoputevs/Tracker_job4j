@@ -2,6 +2,7 @@ package ru.job4j.trackers;
 
 import ru.job4j.Tracker;
 import ru.job4j.models.Item;
+import ru.job4j.utils.Observe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +84,12 @@ public class TrackerLocal implements Tracker {
     @Override
     public List<Item> findAll() {
         return new ArrayList<>(items);
+    }
+    
+    public void findAllReact(Observe<Item> observe) throws InterruptedException {
+        for (Item datum : items) {
+            observe.receive(datum);
+        }
     }
 
     @Override

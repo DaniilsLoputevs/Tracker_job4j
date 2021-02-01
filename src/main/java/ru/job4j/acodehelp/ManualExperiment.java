@@ -2,6 +2,8 @@ package ru.job4j.acodehelp;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import static ru.job4j.acodehelp.ArrayHelp.forEach;
+
 /**
  * manual tool - not for production.
  */
@@ -12,7 +14,7 @@ public class ManualExperiment {
 
         AtomicReference<String> answer = new AtomicReference<>();
 
-        ArrayHelp.forEach(arr, elem -> {
+        forEach(arr, elem -> {
             if (elem.equals("two")) {
                 answer.set(elem);
             }

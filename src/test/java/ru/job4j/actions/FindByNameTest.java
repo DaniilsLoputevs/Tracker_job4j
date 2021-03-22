@@ -12,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class FindByNameTest extends AbstractTests {
     // 1) init
     private final Item testItem = new Item("Запись от --- actions[FindByName.execute()]");
+
     private final BaseAction action = new FindByName(1, "");
 
     @Test

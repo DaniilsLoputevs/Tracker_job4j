@@ -24,6 +24,7 @@ public class Replace extends BaseAction {
     public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
         String temp = input.askStr("Enter id in tracker for replace: ");
         int id = Integer.parseInt(temp);
+
         if (ValidateEnterData.checkId(id, tracker)) {
             String name = input.askStr("Enter name for new item: ");
             if (!ValidateEnterData.checkName(name, tracker)) {

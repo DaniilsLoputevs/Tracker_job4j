@@ -7,13 +7,16 @@ import ru.job4j.models.Item;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class FindAllTest extends AbstractTests {
     // 1) init
     private final Item testItem = new Item("Запись от --- actions[FindAll.execute()]");
     private final BaseAction action = new FindAll(1, "");
-
+  
     @Test
     public void modelTestFindAllHbm() {
         // 2) prepare
@@ -37,6 +40,7 @@ public class FindAllTest extends AbstractTests {
         closeSql();
     }
 
+
     @Test
     public void modelTestFindAllSql() {
         // 2) prepare
@@ -50,6 +54,7 @@ public class FindAllTest extends AbstractTests {
 
         // ~4) expected
         var tempResult = trackerSql.findAll();
+
         var expected = new ArrayList<>(List.of("table format: ID --- NAME"));
         expected.addAll(formatExpected(tempResult));
 

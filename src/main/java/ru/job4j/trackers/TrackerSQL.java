@@ -141,6 +141,19 @@ public class TrackerSQL implements Tracker, AutoCloseable {
     }
 
     @Override
+    public boolean deleteAll() {
+        boolean result = false;
+        try (var st = this.connection.prepareStatement("truncate table items ")) {
+            st.execute();
+            result = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LOG.error("Exception in - TrackerSQL.delete()", e);
+        }
+        return result;
+    }
+
+    @Override
     public List<Item> findAll() {
         List<Item> result = new ArrayList<>();
         try (var st = this.connection.prepareStatement("select * from items;")) {

@@ -59,6 +59,14 @@ public interface Tracker {
     boolean deleteAll();
 
     /**
+     * Debug function BE CAREFUL.
+     * Delete all date in store.
+     *
+     * @return - true.
+     */
+    boolean deleteAll();
+
+    /**
      * Найти все заявки.
      *
      * @return List<Item> - лист всех заявок.

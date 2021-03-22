@@ -46,6 +46,7 @@ public class CreateTest extends AbstractTests {
 
         // ~4) expected
         var tempResult = trackerSql.findByName("Запись от --- actions[Create.execute()]");
+      
         var expected = new ArrayList<>(List.of("table format: ID --- NAME"));
         expected.addAll(formatExpected(tempResult));
 

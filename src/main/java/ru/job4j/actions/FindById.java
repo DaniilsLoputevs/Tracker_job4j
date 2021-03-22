@@ -24,6 +24,7 @@ public class FindById extends BaseAction {
     public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
         String temp = input.askStr("Enter id: ");
         int id = Integer.parseInt(temp);
+
         if (ValidateEnterData.checkId(id, tracker)) {
             Item local = tracker.findById(id);
             output.accept("table format: ID --- NAME");

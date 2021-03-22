@@ -3,66 +3,82 @@ package ru.job4j.trackers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.ConfigLoader;
-import ru.job4j.Item;
 import ru.job4j.Tracker;
+import ru.job4j.db.ConnectionRollback;
+import ru.job4j.models.Item;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Класс менеджер заявок.
  *
  * @author Daniils Loputevs
  * @version $Id$
- * @since 04.05.20.
+ * @since 01.10.20.
  * Created 25.03.20.
  */
 public class TrackerSQL implements Tracker, AutoCloseable {
     private Connection connection;
-    private String defaultConfigPath = "./src/main/java/ru/job4j/connection_config.properties";
     private static final Logger LOG = LoggerFactory.getLogger(TrackerSQL.class);
 
-    public TrackerSQL() {
-        initConnection();
-    }
-
-    public TrackerSQL(Connection connection) {
-        this.connection = connection;
+    public TrackerSQL(boolean rollBack) {
+        try {
+            if (rollBack) {
+                this.connection = ConnectionRollback.create(initDefaultConnectionOrNull());
+            } else {
+                this.connection = initDefaultConnectionOrNull();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LOG.error("TrackerSql: Exception in Constructor, see: ", e);
+            System.err.println("TrackerSql: Exception in Constructor(), see:\r\n" + e);
+        }
     }
 
     /**
      * Init Connection to DB.
      */
-    private void initConnection() {
-        var config = new ConfigLoader(defaultConfigPath);
+    private static Connection initDefaultConnectionOrNull() {
+        Connection connection = null;
+        var config = new ConfigLoader(ConfigLoader.getPsqlConfigPath());
         try {
-            this.connection = DriverManager.getConnection(
+            connection = DriverManager.getConnection(
                     config.value("url"),
                     config.value("username"),
                     config.value("password")
             );
-            if (this.connection == null) {
-               throw new RuntimeException();
+            if (connection == null) {
+                throw new RuntimeException();
             }
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            e.printStackTrace();
+            LOG.error("TrackerSql: Exception in Constructor, see: ", e);
+            System.err.println("TrackerSql: Exception in initConnection(), see:\r\n" + e);
         }
+        return connection;
     }
 
     @Override
     public Item add(Item item) {
-        try (var st = this.connection.prepareStatement("insert into items(id, name) values(?, ?);")) {
-            item.setId(generateId());
-            st.setString(1, item.getId());
-            st.setString(2, item.getName());
+        try (var st = this.connection.prepareStatement(
+                "insert into items(name) values(?)",
+                Statement.RETURN_GENERATED_KEYS)) {
+            st.setString(1, item.getName());
             st.execute();
+            try (var id = st.getGeneratedKeys()) {
+                if (id.next()) {
+                    item.setId(id.getInt(1));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            LOG.error("Exception in - TrackerSQL.add()", e);
+            LOG.error("TrackerSql: Exception in Constructor, see: ", e);
+            System.err.println("TrackerSql: Exception in add(), see:\r\n" + e);
         }
         return item;
     }
@@ -80,30 +96,46 @@ public class TrackerSQL implements Tracker, AutoCloseable {
     }
 
     @Override
-    public boolean replace(String id, Item item) {
+    public boolean replace(int id, Item item) {
         var result = false;
         try (var st = this.connection.prepareStatement("update items set name=(?) where id=(?);")) {
             st.setString(1, item.getName());
-            st.setString(2, id);
+            st.setInt(2, id);
             st.executeUpdate();
             result = true;
         } catch (SQLException e) {
             e.printStackTrace();
-            LOG.error("Exception in - TrackerSQL.replace()", e);
+            LOG.error("TrackerSql: Exception in Constructor, see: ", e);
+            System.err.println("TrackerSql: Exception in replace(), see:\r\n" + e);
         }
         return result;
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(int id) {
         boolean result = false;
         try (var st = this.connection.prepareStatement("delete from items where id=?")) {
-            st.setString(1, id);
+            st.setInt(1, id);
             st.executeUpdate();
             result = true;
         } catch (SQLException e) {
             e.printStackTrace();
-            LOG.error("Exception in - TrackerSQL.delete()", e);
+            LOG.error("TrackerSql: Exception in Constructor, see: ", e);
+            System.err.println("TrackerSql: Exception in delete(), see:\r\n" + e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean deleteAll() {
+        boolean result = false;
+        try (var st = this.connection.prepareStatement("truncate table items ")) {
+            st.execute();
+            result = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LOG.error("TrackerSql: Exception in Constructor, see: ", e);
+            System.err.println("TrackerSql: Exception in deleteAll(), see:\r\n" + e);
         }
         return result;
     }
@@ -127,12 +159,15 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         try (var st = this.connection.prepareStatement("select * from items;")) {
             try (var rs = st.executeQuery()) {
                 while (rs.next()) {
-                    result.add(new Item(rs.getString("id"), rs.getString("name")));
+                    result.add(new Item(
+                            rs.getInt("id"),
+                            rs.getString("name")));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            LOG.error("Exception in - TrackerSQL.findAll()", e);
+            LOG.error("TrackerSql: Exception in Constructor, see: ", e);
+            System.err.println("TrackerSql: Exception in findAll(), see:\r\n" + e);
         }
         return result;
     }
@@ -144,37 +179,41 @@ public class TrackerSQL implements Tracker, AutoCloseable {
             st.setString(1, key);
             try (var rs = st.executeQuery()) {
                 while (rs.next()) {
-                    result.add(new Item(rs.getString("id"), rs.getString("name")));
+                    result.add(new Item(
+                            rs.getInt("id"),
+                            rs.getString("name")));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            LOG.error("Exception in - TrackerSQL.findByName()", e);
+            LOG.error("TrackerSql: Exception in Constructor, see: ", e);
+            System.err.println("TrackerSql: Exception in findByName(), see:\r\n" + e);
         }
         return result;
     }
 
     @Override
-    public Item findById(String id) {
+    public Item findById(int id) {
         Item result = null;
         try (var st = this.connection.prepareStatement("select * from items where id=?")) {
-            st.setString(1, id);
+            st.setInt(1, id);
             try (var rs = st.executeQuery()) {
                 if (rs.next()) {
-                    result = new Item(rs.getString("id"), rs.getString("name"));
+                    result = new Item(rs.getInt("id"), rs.getString("name"));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            LOG.error("Exception - TrackerSQL.findById()", e);
+            LOG.error("TrackerSql: Exception in Constructor, see: ", e);
+            System.err.println("TrackerSql: Exception in findById(), see:\r\n" + e);
         }
         return result;
     }
 
     @Override
-    public boolean containsId(String id) {
+    public boolean containsId(int id) {
         var temp = findById(id);
-        return temp != null && temp.getId() != null;
+        return temp != null && temp.getId() != -1;
     }
 
     @Override
@@ -191,14 +230,5 @@ public class TrackerSQL implements Tracker, AutoCloseable {
                 LOG.error(e.getMessage(), e);
             }
         }
-    }
-
-    /**
-     * Create new Id for adding item.
-     * @return - Id for new {@code Item}.
-     */
-    private String generateId() {
-        Random rm = new Random();
-        return String.valueOf(rm.nextLong() + System.currentTimeMillis());
     }
 }

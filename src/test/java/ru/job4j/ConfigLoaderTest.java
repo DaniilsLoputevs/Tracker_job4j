@@ -6,23 +6,25 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class ConfigLoaderTest {
-    private String path = "./src/test/resources/connection_config.properties";
     private ConfigLoader config;
 
     @Before
     public void setUp() {
-        config = new ConfigLoader(path);
+        config = new ConfigLoader(ConfigLoader.getPsqlConfigPath());
     }
 
     @Test
     public void testConfigLoading() {
-        assertEquals("psql", config.value("username"));
+        assertEquals("postgres", config.value("username"));
     }
 
     @Test
     public void testConfigToString() {
         var result = config.toString();
-        var expected = "Config: {password=default, url=test.url, username=psql}";
+        var expected = "Config: "
+                + "{password=password,"
+                + " url=jdbc:postgresql://localhost:5432/tracker,"
+                + " username=postgres}";
         assertEquals(expected, result);
     }
 }

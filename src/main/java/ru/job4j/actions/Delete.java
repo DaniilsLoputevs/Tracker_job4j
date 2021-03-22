@@ -21,7 +21,10 @@ public class Delete extends BaseAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
-        String id = input.askStr("Enter id: ");
+
+        String temp = input.askStr("Enter id: ");
+        int id = Integer.parseInt(temp);
+
         if (ValidateEnterData.checkId(id, tracker)) {
             tracker.delete(id);
             output.accept("This item was deleted.");

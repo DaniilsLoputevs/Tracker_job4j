@@ -1,8 +1,8 @@
 package ru.job4j.actions;
 
 import ru.job4j.Input;
-import ru.job4j.Item;
 import ru.job4j.Tracker;
+import ru.job4j.models.Item;
 
 import java.util.function.Consumer;
 
@@ -22,7 +22,9 @@ public class Replace extends BaseAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
-        String id = input.askStr("Enter id in tracker for replace: ");
+        String temp = input.askStr("Enter id in tracker for replace: ");
+        int id = Integer.parseInt(temp);
+
         if (ValidateEnterData.checkId(id, tracker)) {
             String name = input.askStr("Enter name for new item: ");
             if (!ValidateEnterData.checkName(name, tracker)) {

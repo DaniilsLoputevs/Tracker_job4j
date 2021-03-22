@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
  * @since 04.05.20.
  */
 public class ConfigLoader {
-    private String path;
-    private Properties values = new Properties();
+    private final String path;
+    private final Properties values = new Properties();
     private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
 
     public ConfigLoader(final String path) {
@@ -76,5 +76,12 @@ public class ConfigLoader {
     @Override
     public String toString() {
         return "Config: " + values;
+    }
+
+    /* static methods */
+
+    public static String getPsqlConfigPath() {
+        String cfgResourcePath = "connection_config.properties";
+        return ConfigLoader.class.getClassLoader().getResource(cfgResourcePath).getFile();
     }
 }

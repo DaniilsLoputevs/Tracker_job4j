@@ -1,7 +1,8 @@
 package ru.job4j.trackers;
 
-import ru.job4j.Item;
 import ru.job4j.Tracker;
+import ru.job4j.models.Item;
+import ru.job4j.utils.Observe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,9 @@ public class TrackerLocal implements Tracker {
      *
      * @return Уникальный ключ. (далее присваивается заявке(Item item), как id).
      */
-    String generateId() {
+    int generateId() {
         var rm = new Random();
-        return String.valueOf(rm.nextLong() + System.currentTimeMillis());
+        return Integer.parseInt("" + (rm.nextInt() + System.currentTimeMillis() / rm.nextInt()));
     }
 
     /* ============= Методы Tracker ============= */
@@ -55,7 +56,7 @@ public class TrackerLocal implements Tracker {
     }
 
     @Override
-    public boolean replace(String id, Item item) {
+    public boolean replace(int id, Item item) {
         int index = indexOfId(id);
         if (index != -1) {
             item.setId(id);
@@ -65,7 +66,7 @@ public class TrackerLocal implements Tracker {
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(int id) {
         int index = indexOfId(id);
         if (index != -1) {
             items.remove(index);
@@ -84,6 +85,12 @@ public class TrackerLocal implements Tracker {
     public List<Item> findAll() {
         return new ArrayList<>(items);
     }
+    
+    public void findAllReact(Observe<Item> observe) throws InterruptedException {
+        for (Item datum : items) {
+            observe.receive(datum);
+        }
+    }
 
     @Override
     public List<Item> findByName(String key) {
@@ -97,13 +104,13 @@ public class TrackerLocal implements Tracker {
     }
 
     @Override
-    public Item findById(String id) {
+    public Item findById(int id) {
         int index = indexOfId(id);
         return (index != -1) ? items.get(index) : null;
     }
 
     @Override
-    public boolean containsId(String id) {
+    public boolean containsId(int id) {
         return indexOfId(id) != -1;
     }
 
@@ -118,11 +125,11 @@ public class TrackerLocal implements Tracker {
      * @param id - id заявки.
      * @return - индекс заявки.
      */
-    public int indexOfId(String id) {
+    public int indexOfId(int id) {
         int index = 0;
         boolean find = false;
         for (Item item : items) {
-            if (item.getId().equals(id)) {
+            if (item.getId() == id) {
                 find = true;
                 break;
             }

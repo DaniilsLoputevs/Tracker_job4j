@@ -1,9 +1,9 @@
 package ru.job4j.actions.debug;
 
 import ru.job4j.Input;
-import ru.job4j.Item;
 import ru.job4j.Tracker;
 import ru.job4j.actions.BaseAction;
+import ru.job4j.models.Item;
 
 import java.util.Random;
 import java.util.function.Consumer;
@@ -19,7 +19,8 @@ public class GenerateNItems extends BaseAction {
         var random = new Random();
         output.accept("table format: ID --- NAME");
         for (int i = 0; i < count; i++) {
-            var local = tracker.add(new Item(String.valueOf(random.nextInt()), "Debug_Items: " + i));
+            var temp = new Item(Integer.parseInt("" + random.nextInt()), "Debug_Items: " + i);
+            var local = tracker.add(temp);
             output.accept(local.getId() + " --- " + local.getName());
         }
         return true;

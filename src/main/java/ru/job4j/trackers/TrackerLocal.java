@@ -75,9 +75,8 @@ public class TrackerLocal implements Tracker {
     }
 
     @Override
-    public boolean deleteAll() {
+    public void deleteAll() {
         this.items.clear();
-        return false;
     }
     /* ============= Методы findBy... ============= */
 

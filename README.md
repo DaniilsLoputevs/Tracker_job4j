@@ -26,6 +26,7 @@ It can all CRUD operations with applications.
 - ***Git*** - distributed version control system.
 - ***JaCoCo*** - library for analyzing code coverage.
 - ***Travis CI*** - service for assembling and testing software.
+- ***SQL*** - Language for work with a database.
 - ***Hibernate*** - Framework for work with a database.
 
 ---
@@ -33,6 +34,7 @@ It can all CRUD operations with applications.
 - add application.
 - update application.
 - delete application.
+- delete all applications.
 - find application by name.
 - find application by id.
 

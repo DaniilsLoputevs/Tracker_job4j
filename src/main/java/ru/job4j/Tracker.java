@@ -53,10 +53,8 @@ public interface Tracker {
     /**
      * Debug function BE CAREFUL.
      * Delete all date in store.
-     *
-     * @return - true.
      */
-    boolean deleteAll();
+    void deleteAll();
 
     /**
      * Найти все заявки.

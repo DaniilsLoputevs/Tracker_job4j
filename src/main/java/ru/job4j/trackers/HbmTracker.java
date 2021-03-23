@@ -55,12 +55,11 @@ public class HbmTracker implements Tracker, AutoCloseable {
     }
 
     @Override
-    public boolean deleteAll() {
+    public void deleteAll() {
         transactionCore(session ->
             session.createSQLQuery("truncate table items")
                     .executeUpdate()
         );
-        return true;
     }
 
     @Override

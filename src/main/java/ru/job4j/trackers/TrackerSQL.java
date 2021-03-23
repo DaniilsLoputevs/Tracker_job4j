@@ -25,7 +25,7 @@ import java.util.List;
 public class TrackerSQL implements Tracker, AutoCloseable {
     private Connection connection;
     private static final Logger LOG = LoggerFactory.getLogger(TrackerSQL.class);
-
+    
     public TrackerSQL(boolean rollBack) {
         try {
             if (rollBack) {
@@ -39,7 +39,7 @@ public class TrackerSQL implements Tracker, AutoCloseable {
             System.err.println("TrackerSql: Exception in Constructor(), see:\r\n" + e);
         }
     }
-
+    
     /**
      * Init Connection to DB.
      */
@@ -62,7 +62,7 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         }
         return connection;
     }
-
+    
     @Override
     public Item add(Item item) {
         try (var st = this.connection.prepareStatement(
@@ -82,7 +82,7 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         }
         return item;
     }
-
+    
     @Override
     public List<Item> addAll(Item... items) {
         List<Item> result = new ArrayList<>();
@@ -94,7 +94,7 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         }
         return result;
     }
-
+    
     @Override
     public boolean replace(int id, Item item) {
         var result = false;
@@ -110,7 +110,7 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         }
         return result;
     }
-
+    
     @Override
     public boolean delete(int id) {
         boolean result = false;
@@ -125,21 +125,18 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         }
         return result;
     }
-
+    
     @Override
-    public boolean deleteAll() {
-        boolean result = false;
+    public void deleteAll() {
         try (var st = this.connection.prepareStatement("truncate table items ")) {
             st.execute();
-            result = true;
         } catch (SQLException e) {
             e.printStackTrace();
             LOG.error("TrackerSql: Exception in Constructor, see: ", e);
             System.err.println("TrackerSql: Exception in deleteAll(), see:\r\n" + e);
         }
-        return result;
     }
-
+    
     @Override
     public List<Item> findAll() {
         List<Item> result = new ArrayList<>();
@@ -158,7 +155,7 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         }
         return result;
     }
-
+    
     @Override
     public List<Item> findByName(String key) {
         List<Item> result = new ArrayList<>();
@@ -178,7 +175,7 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         }
         return result;
     }
-
+    
     @Override
     public Item findById(int id) {
         Item result = null;
@@ -196,18 +193,18 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         }
         return result;
     }
-
+    
     @Override
     public boolean containsId(int id) {
         var temp = findById(id);
         return temp != null && temp.getId() != -1;
     }
-
+    
     @Override
     public boolean containsName(String name) {
         return !findByName(name).isEmpty();
     }
-
+    
     @Override
     public void close() {
         if (this.connection != null) {
